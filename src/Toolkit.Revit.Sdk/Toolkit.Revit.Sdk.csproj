@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Platforms>x64</Platforms>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<TargetFrameworks>net48;net10.0</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>VolocyNazad</Authors>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<Copyright>Copyright © VolocyNazad</Copyright>
+		<Description>MSBuild SDK for Revit add-ins development</Description>
+		<PackageTags>autodesk;revit;api;sdk;</PackageTags>
+		<PackageId>VolocyNazad.Revit.Sdk</PackageId>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageType>MSBuildSdk</PackageType>
+		<!--<PackageIcon>logo_128x128.png</PackageIcon>-->
+		<PackageProjectUrl>https://github.com/VolocyNazad/toolkit.revit.sdk</PackageProjectUrl>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageOutputPath>..\..\artifacts\</PackageOutputPath>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/VolocyNazad/toolkit.revit.sdk</RepositoryUrl>
+		<PackageReleaseNotes>https://github.com/VolocyNazad/toolkit.revit.sdk/blob/main/CHANGELOG.md</PackageReleaseNotes>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IsPackable>true</IsPackable>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<BuildOutputTargetFolder>tasks</BuildOutputTargetFolder>
+		<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!--<None Include="..\..\.nuget\PackageIcon.png" PackagePath="images/" Pack="true" Visible="false"/>-->
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false" />
+		<None Include="..\..\LICENSE.md" Pack="true" PackagePath="" Visible="false" />
+		<Content Include="Sdk\**\*" PackagePath="Sdk\" Pack="true" />
+	</ItemGroup>
+	
+	<PropertyGroup>
+		<MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+		<MinVerAutoIncrement>minor</MinVerAutoIncrement>
+		<MinVerTagPrefix>v</MinVerTagPrefix>
+		<MinVerDefaultPreReleaseIdentifiers>dev.0</MinVerDefaultPreReleaseIdentifiers>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PolySharp" Version="1.16.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.4.0" ExcludeAssets="Runtime" />
+		<PackageReference Include="MinVer" Version="7.0.0" />
+	</ItemGroup>
+
+</Project>

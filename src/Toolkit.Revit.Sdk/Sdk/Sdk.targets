@@ -1,0 +1,60 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<UsingTask TaskName="Toolkit.Revit.Sdk.GenerateAddinManifest"
+			   AssemblyFile="$(MSBuildThisFileDirectory)..\tasks\net48\Toolkit.Revit.Sdk.dll" />
+	
+	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
+	
+	<PropertyGroup>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != ''">VERSION_$(MajorRevitVersion)</DefineConstants>
+
+		<DefineConstants Condition="'$(MajorRevitVersion)' != ''">$(DefineConstants);IS$(MajorRevitVersion)</DefineConstants>
+
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2012">$(DefineConstants);BEFORE2012</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2013">$(DefineConstants);BEFORE2013</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2014">$(DefineConstants);BEFORE2014</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2015">$(DefineConstants);BEFORE2015</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2016">$(DefineConstants);BEFORE2016</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2017">$(DefineConstants);BEFORE2017</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2018">$(DefineConstants);BEFORE2018</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2019">$(DefineConstants);BEFORE2019</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2020">$(DefineConstants);BEFORE2020</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2021">$(DefineConstants);BEFORE2021</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2022">$(DefineConstants);BEFORE2022</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2023">$(DefineConstants);BEFORE2023</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2024">$(DefineConstants);BEFORE2024</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2025">$(DefineConstants);BEFORE2025</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2026">$(DefineConstants);BEFORE2026</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &lt;= 2027">$(DefineConstants);BEFORE2027</DefineConstants>
+
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2011">$(DefineConstants);AFTER2011</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2012">$(DefineConstants);AFTER2012</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2013">$(DefineConstants);AFTER2013</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2014">$(DefineConstants);AFTER2014</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2015">$(DefineConstants);AFTER2015</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2016">$(DefineConstants);AFTER2016</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2017">$(DefineConstants);AFTER2017</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2018">$(DefineConstants);AFTER2018</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2019">$(DefineConstants);AFTER2019</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2020">$(DefineConstants);AFTER2020</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2021">$(DefineConstants);AFTER2021</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2022">$(DefineConstants);AFTER2022</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2023">$(DefineConstants);AFTER2023</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2024">$(DefineConstants);AFTER2024</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2025">$(DefineConstants);AFTER2025</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2026">$(DefineConstants);AFTER2026</DefineConstants>
+
+		<DefineConstants Condition="$(Configuration.StartsWith('Debug'))">$(DefineConstants);DEBUG</DefineConstants>
+		<DefineConstants Condition="$(Configuration.StartsWith('Release'))">$(DefineConstants);RELEASE</DefineConstants>
+	</PropertyGroup>
+
+	 <!--Output--> 
+	<Target Condition="'$(IsDebug)' == 'true'" Name="PrintDefines" AfterTargets="Build">
+		<Message Text="=== Configuration Info ===" Importance="high" />
+		<Message Text="Configuration: $(Configuration)" Importance="high" />
+		<Message Text="MajorRevitVersion: $(MajorRevitVersion)" Importance="high" />
+		<Message Text="DefineConstants: $(DefineConstants)" Importance="high" />
+	</Target>
+
+	<Import Project="GenerateAddinManifest.targets"/>
+</Project>

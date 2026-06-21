@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<GenerateAddinOnBuild Condition="'$(GenerateAddinOnBuild)' == ''">false</GenerateAddinOnBuild>
+		<AddinOutputDirectory Condition="'$(AddinOutputDirectory)' == ''">$(MSBuildProjectDirectory)</AddinOutputDirectory>
+	</PropertyGroup>
+	<Target Name="GenerateAddinManifest"
+            AfterTargets="Build"
+            Condition="'$(GenerateAddinOnBuild)' == 'true'">
+		<GenerateAddinManifest
+			Assembly="$(TargetPath)"
+			VendorId="$(Authors)"
+			VendorDescription="$(Authors)"
+			ExternalApplications="@(ExternalApplication)"
+			ExternalCommands="@(ExternalCommand)"
+			Output="$(AddinOutputDirectory)">
+			<Output TaskParameter="ManifestPath" PropertyName="GeneratedManifestPath"/>
+		</GenerateAddinManifest>
+		<Message Text="Addin manifest generated: $(GeneratedManifestPath)" Importance="high"/>
+	</Target>
+</Project>

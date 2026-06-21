@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  build:
+    name: windows-latest
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        configuration: [
+          "Release 2021.1.9", "Release 2023.0.0", "Release 2025.0.0"
+        ]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+    - name: Execute build and run tests
+      run: |
+        dotnet build --configuration "${{ matrix.configuration }}" /nologo
+        dotnet test --configuration "${{ matrix.configuration }}"
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: VolocyNazad.Revit.MediatR
+        path: artifacts/*
+    - name: Publish NuGet package
+      run: |
+        foreach($file in (Get-ChildItem "artifacts/" -Recurse -Include *.nupkg)) {
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        }

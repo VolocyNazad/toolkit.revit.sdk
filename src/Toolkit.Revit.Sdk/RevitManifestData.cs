@@ -1,0 +1,11 @@
+﻿namespace Toolkit.Revit.Sdk;
+
+internal class RevitManifestData
+{
+    public Guid AddInId { get; } = Guid.NewGuid();
+    public required string Name { get; init; }
+    public required string Assembly { get; init; }
+    public required string FullClassName { get; init; }
+    public required string VendorId { get; init; }
+    public required string VendorDescription { get; init; }
+}

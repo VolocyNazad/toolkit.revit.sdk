@@ -1,0 +1,55 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>true</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<Platforms>x64</Platforms>
+		<Configurations>
+			Debug 2021.1.4;Debug 2021.1.9;Debug 2023.0.0;Debug 2025.0.0;
+			Release 2011.0.0;Release 2011.0.1;Release 2012.0.0;Release 2012.0.1;
+			Release 2013.0.0;Release 2013.0.1;Release 2014.0.0;Release 2014.0.1;
+			Release 2015.0.0;Release 2015.0.1;Release 2016.0.0;Release 2016.0.1;
+			Release 2016.0.2;Release 2017.0.0;Release 2017.0.1;Release 2017.0.2;
+			Release 2018.0.0;Release 2018.0.1;Release 2018.0.2;Release 2019.0.0;
+			Release 2019.0.1;Release 2020.0.0;Release 2020.0.1;Release 2021.0.0;
+			Release 2021.1.4;Release 2021.1.9;Release 2022.0.0;Release 2022.1.0;
+			Release 2023.0.0;Release 2024.0.0;Release 2024.2.0;Release 2025.0.0;
+			Release 2026.0.0;Release 2027.0.0;Release 2027.0.2
+		</Configurations>
+		<RevitVersion>$(Configuration.Split(' ')[1])</RevitVersion>
+		<MajorRevitVersion>$(RevitVersion.Split('.')[0])</MajorRevitVersion>
+	</PropertyGroup>
+	<PropertyGroup>
+		<IsNet8 Condition="'$(MajorRevitVersion)' == '2025'">true</IsNet8>
+		<IsNet8 Condition="'$(MajorRevitVersion)' == '2026'">true</IsNet8>
+		<IsNet8 Condition="'$(IsNet8)' == ''">false</IsNet8>
+	</PropertyGroup>
+	<PropertyGroup>
+		<IsDebug Condition="$(Configuration.StartsWith('Debug'))">true</IsDebug>
+		<IsDebug Condition="'$(IsDebug)' == ''">false</IsDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
+		<TargetFramework>net8.0-windows</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsNet8)' != 'true'">
+		<TargetFramework>net48</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsDebug)' == 'true'">
+		<Optimize>False</Optimize>
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsDebug)' != 'true'">
+		<Optimize>True</Optimize>
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<Target Name="RemoveRevitAPICopyLocal" AfterTargets="ResolveAssemblyReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == 'RevitAPI' or '%(Filename)' == 'RevitAPIUI'" />
+		</ItemGroup>
+	</Target>
+	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+</Project>
