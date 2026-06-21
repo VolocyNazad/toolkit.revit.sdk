@@ -22,8 +22,8 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/VolocyNazad/toolkit.revit.sdk</RepositoryUrl>
 		<PackageReleaseNotes>https://github.com/VolocyNazad/toolkit.revit.sdk/blob/main/CHANGELOG.md</PackageReleaseNotes>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<!--<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>-->
 	</PropertyGroup>
 
 	<PropertyGroup>
