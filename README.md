@@ -4,5 +4,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![VolocyNazad](https://img.shields.io/badge/VolocyNazad-blue.svg)](https://github.com/VolocyNazad)
 
-> Шаблоны проектов для создания расширений (плагинов) для Revit.
+> SDK для создания расширений (плагинов) для Revit.
 
