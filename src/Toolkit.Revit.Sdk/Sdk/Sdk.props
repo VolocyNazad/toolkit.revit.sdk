@@ -44,12 +44,12 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
-	<Target Name="RemoveRevitAPICopyLocal" AfterTargets="ResolveAssemblyReferences">
-		<ItemGroup>
-			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == 'RevitAPI' or '%(Filename)' == 'RevitAPIUI'" />
-		</ItemGroup>
-	</Target>
 	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(LaunchRevit)' == 'true'">
+		<StartAction Condition="'$(StartAction)' == ''">Program</StartAction>
+		<StartProgram Condition="'$(StartProgram)' == ''">C:\Program Files\Autodesk\Revit $(MajorRevitVersion)\Revit.exe</StartProgram>
+		<StartArguments Condition="'$(StartArguments)' == ''">/language ENG</StartArguments>
 	</PropertyGroup>
 </Project>

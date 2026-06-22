@@ -56,5 +56,11 @@
 		<Message Text="DefineConstants: $(DefineConstants)" Importance="high" />
 	</Target>
 
+	<Target Name="RemoveRevitAPICopyLocal" AfterTargets="ResolveAssemblyReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == 'RevitAPI' or '%(Filename)' == 'RevitAPIUI'" />
+		</ItemGroup>
+	</Target>
+
 	<Import Project="GenerateAddinManifest.targets"/>
 </Project>
