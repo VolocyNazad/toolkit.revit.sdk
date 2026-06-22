@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition="'$(LaunchRevit)' == 'true'">
+		<StartAction Condition="'$(StartAction)' == ''">Program</StartAction>
+		<StartProgram Condition="'$(StartProgram)' == ''">C:\Program Files\Autodesk\Revit $(MajorRevitVersion)\Revit.exe</StartProgram>
+		<StartArguments Condition="'$(StartArguments)' == ''">/language ENG</StartArguments>
+	</PropertyGroup>
+</Project>

@@ -1,0 +1,5 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Name="ValidateMajorRevitVersion" BeforeTargets="BeforeBuild" Condition="'$(RevitVersion)' == '-1'">
+		<Error Text="Target Revit version cannot be resolved. The configuration must contain a version number, for example: Release.R2026 or Release.R26."/>
+	</Target>
+</Project>

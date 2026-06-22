@@ -10,6 +10,7 @@ public sealed class GenerateAddinManifest : Task
     public string Assembly { get; set; } = string.Empty;
     public string VendorId { get; set; } = string.Empty;
     public string VendorDescription { get; set; } = string.Empty;
+    public string RevitVersion { get; set; } = string.Empty;
     public ITaskItem[] ExternalApplications { get; set; } = [];
     public ITaskItem[] ExternalCommands { get; set; } = [];
     public string Output { get; set; } = string.Empty;
@@ -53,7 +54,7 @@ public sealed class GenerateAddinManifest : Task
             commands.Add(data);
         }
 
-        var directoryOutputPath = Path.Combine(Output, "addins");
+        var directoryOutputPath = Path.Combine(Output, "addins", RevitVersion);
         if (!Directory.Exists(directoryOutputPath))
             Directory.CreateDirectory(directoryOutputPath);
         var addinFileName = Path.GetFileNameWithoutExtension(Assembly);

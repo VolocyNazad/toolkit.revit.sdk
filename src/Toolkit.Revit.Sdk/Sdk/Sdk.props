@@ -4,20 +4,20 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>true</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
-		<Platforms>x64</Platforms>
+		<Platform>x64</Platform>
 		<Configurations>
-			Debug 2021.1.4;Debug 2021.1.9;Debug 2023.0.0;Debug 2025.0.0;
-			Release 2011.0.0;Release 2011.0.1;Release 2012.0.0;Release 2012.0.1;
-			Release 2013.0.0;Release 2013.0.1;Release 2014.0.0;Release 2014.0.1;
-			Release 2015.0.0;Release 2015.0.1;Release 2016.0.0;Release 2016.0.1;
-			Release 2016.0.2;Release 2017.0.0;Release 2017.0.1;Release 2017.0.2;
-			Release 2018.0.0;Release 2018.0.1;Release 2018.0.2;Release 2019.0.0;
-			Release 2019.0.1;Release 2020.0.0;Release 2020.0.1;Release 2021.0.0;
-			Release 2021.1.4;Release 2021.1.9;Release 2022.0.0;Release 2022.1.0;
-			Release 2023.0.0;Release 2024.0.0;Release 2024.2.0;Release 2025.0.0;
-			Release 2026.0.0;Release 2027.0.0;Release 2027.0.2
+			Debug_2021.1.4;Debug_2021.1.9;Debug_2023.0.0;Debug_2025.0.0;
+			Release_2011.0.0;Release_2011.0.1;Release_2012.0.0;Release_2012.0.1;
+			Release_2013.0.0;Release_2013.0.1;Release_2014.0.0;Release_2014.0.1;
+			Release_2015.0.0;Release_2015.0.1;Release_2016.0.0;Release_2016.0.1;
+			Release_2016.0.2;Release_2017.0.0;Release_2017.0.1;Release_2017.0.2;
+			Release_2018.0.0;Release_2018.0.1;Release_2018.0.2;Release_2019.0.0;
+			Release_2019.0.1;Release_2020.0.0;Release_2020.0.1;Release_2021.0.0;
+			Release_2021.1.4;Release_2021.1.9;Release_2022.0.0;Release_2022.1.0;
+			Release_2023.0.0;Release_2024.0.0;Release_2024.2.0;Release_2025.0.0;
+			Release_2026.0.0;Release_2027.0.0;Release_2027.0.2
 		</Configurations>
-		<RevitVersion>$(Configuration.Split(' ')[1])</RevitVersion>
+		<RevitVersion>$(Configuration.Split('_')[1])</RevitVersion>
 		<MajorRevitVersion>$(RevitVersion.Split('.')[0])</MajorRevitVersion>
 	</PropertyGroup>
 	<PropertyGroup>
@@ -47,9 +47,12 @@
 	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(LaunchRevit)' == 'true'">
-		<StartAction Condition="'$(StartAction)' == ''">Program</StartAction>
-		<StartProgram Condition="'$(StartProgram)' == ''">C:\Program Files\Autodesk\Revit $(MajorRevitVersion)\Revit.exe</StartProgram>
-		<StartArguments Condition="'$(StartArguments)' == ''">/language ENG</StartArguments>
+	<PropertyGroup>
+		<BuildTasksDirectoryRoot>$(MSBuildThisFileDirectory)..\tasks\</BuildTasksDirectoryRoot>
+		<BuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">net10.0</BuildTasksTFM>
+		<BuildTasksTFM Condition=" '$(BuildTasksTFM)' == ''">net48</BuildTasksTFM>
+		<BuildTasksDirectory>$(BuildTasksDirectoryRoot)$(BuildTasksTFM)\</BuildTasksDirectory>
+		<BuildTasksAssembly>$(BuildTasksDirectory)Toolkit.Revit.Sdk.dll</BuildTasksAssembly>
 	</PropertyGroup>
+	<UsingTask TaskName="$(MSBuildThisFileName).GenerateAddinManifest" AssemblyFile="$(BuildTasksAssembly)"/>
 </Project>

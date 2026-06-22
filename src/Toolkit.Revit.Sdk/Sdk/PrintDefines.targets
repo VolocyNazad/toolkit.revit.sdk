@@ -1,0 +1,8 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Target Condition="'$(IsDebug)' == 'true'" Name="PrintDefines" AfterTargets="Build">
+		<Message Text="=== Configuration Info ===" Importance="high" />
+		<Message Text="Configuration: $(Configuration)" Importance="high" />
+		<Message Text="MajorRevitVersion: $(MajorRevitVersion)" Importance="high" />
+		<Message Text="DefineConstants: $(DefineConstants)" Importance="high" />
+	</Target>
+</Project>
