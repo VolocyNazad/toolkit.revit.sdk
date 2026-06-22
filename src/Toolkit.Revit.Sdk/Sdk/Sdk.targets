@@ -1,9 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="SetupRevitDebugging.props"/>
+	
 	<!--Import base SDK-->
 	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 	
-	<Import Project="SetupRevitDebugging.props"/>
 	<Import Project="SetupRevitDefineConstants.props"/>
 
 	<Import Project="ValidateMajorRevitVersion.targets"/>
