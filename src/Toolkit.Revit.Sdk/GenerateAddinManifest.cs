@@ -4,19 +4,48 @@ using Task = Microsoft.Build.Utilities.Task;
 
 namespace Toolkit.Revit.Sdk;
 
+/// <summary>
+/// Создаёт манифест расширения Revit на основе элементов MSBuild.
+/// </summary>
 public sealed class GenerateAddinManifest : Task
 {
-    // Входные параметры из MSBuild
+    /// <summary>
+    /// Возвращает или задаёт путь к сборке расширения.
+    /// </summary>
     public string Assembly { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Возвращает или задаёт идентификатор разработчика расширения.
+    /// </summary>
     public string VendorId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Возвращает или задаёт описание разработчика расширения.
+    /// </summary>
     public string VendorDescription { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Возвращает или задаёт целевую версию Revit.
+    /// </summary>
     public string RevitVersion { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Возвращает или задаёт внешние приложения, добавляемые в манифест.
+    /// </summary>
     public ITaskItem[] ExternalApplications { get; set; } = [];
+
+    /// <summary>
+    /// Возвращает или задаёт внешние команды, добавляемые в манифест.
+    /// </summary>
     public ITaskItem[] ExternalCommands { get; set; } = [];
+
+    /// <summary>
+    /// Возвращает или задаёт выходной каталог.
+    /// </summary>
     public string Output { get; set; } = string.Empty;
 
     /// <summary>
-    /// Путь к сгенерированному манифест (Выходной параметр)
+    /// Возвращает или задаёт путь к сгенерированному манифесту.
     /// </summary>
     [Output]
     public string? ManifestPath { get; set; }
@@ -68,7 +97,13 @@ public sealed class GenerateAddinManifest : Task
         return true;
     }
 
-    XDocument GenerateAddInFile(List<RevitApplicationData> apps, List<RevitCommandData> commands)
+    /// <summary>
+    /// Создаёт XML-документ манифеста для указанных приложений и команд.
+    /// </summary>
+    /// <param name="apps">Внешние приложения Revit.</param>
+    /// <param name="commands">Внешние команды Revit.</param>
+    /// <returns>Сформированный XML-документ манифеста.</returns>
+    private static XDocument GenerateAddInFile(List<RevitApplicationData> apps, List<RevitCommandData> commands)
     {
         XElement root = new("RevitAddIns");
 
