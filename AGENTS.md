@@ -24,12 +24,12 @@ against (`<Project Sdk="VolocyNazad.Revit.Sdk/...">`).
 
 ## Repository structure
 
-A single small project, no separate `tests/`:
-
 ```
 .
-└── src/
-    └── Toolkit.Revit.Sdk/    the SDK itself (MSBuild tasks/targets)
+├── src/
+│   └── Toolkit.Revit.Sdk/          the SDK itself (MSBuild tasks/targets)
+└── tests/
+    └── Toolkit.Revit.Sdk.Tests/    xunit tests for the task logic (e.g. GenerateAddinManifest)
 ```
 
 ## Tech stack
@@ -38,3 +38,12 @@ A single small project, no separate `tests/`:
 - `Microsoft.Build.Utilities.Core` (MSBuild task API)
 - MinVer (git-tag-based versioning)
 - PolySharp (C# language polyfills)
+- xunit (unit tests, in `tests/Toolkit.Revit.Sdk.Tests`, targets `net10.0` only), two styles:
+  - task logic (`GenerateAddinManifest`) is tested by instantiating the task directly with
+    `Microsoft.Build.Utilities.TaskItem` inputs and asserting on the generated `.addin` XML
+  - `.props`/`.targets` logic (version parsing, `DefineConstants`, `RemoveRevitAPICopyLocal`,
+    `ValidateMajorRevitVersion`) is tested by importing the real files into a throwaway temp project
+    and evaluating/building it via `Microsoft.Build.Evaluation`/`Microsoft.Build.Execution`, bootstrapped
+    with `Microsoft.Build.Locator` (`MSBuildLocator.RegisterDefaults()` in a `[ModuleInitializer]`) so
+    the SDK-import chain (`Sdk="Microsoft.NET.Sdk"`) resolves against the real installed .NET SDK -
+    no real C# compile or Revit is involved

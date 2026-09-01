@@ -1,39 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
-	<PropertyGroup>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>true</ImplicitUsings>
-		<LangVersion>latest</LangVersion>
-		<RevitVersion>$(Configuration.Split('_')[1])</RevitVersion>
-		<MajorRevitVersion>$(RevitVersion.Split('.')[0])</MajorRevitVersion>
-	</PropertyGroup>
-	<PropertyGroup>
-		<IsNet8 Condition="'$(MajorRevitVersion)' == '2025'">true</IsNet8>
-		<IsNet8 Condition="'$(MajorRevitVersion)' == '2026'">true</IsNet8>
-		<IsNet8 Condition="'$(IsNet8)' == ''">false</IsNet8>
-	</PropertyGroup>
-	<PropertyGroup>
-		<IsDebug Condition="$(Configuration.StartsWith('Debug'))">true</IsDebug>
-		<IsDebug Condition="'$(IsDebug)' == ''">false</IsDebug>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
-		<TargetFramework>net8.0-windows</TargetFramework>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(IsNet8)' != 'true'">
-		<TargetFramework>net48</TargetFramework>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(IsDebug)' == 'true'">
-		<Optimize>False</Optimize>
-		<DebugType>portable</DebugType>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(IsDebug)' != 'true'">
-		<Optimize>True</Optimize>
-		<DebugType>none</DebugType>
-		<DebugSymbols>false</DebugSymbols>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(IsNet8)' == 'true'">
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	</PropertyGroup>
+	<Import Project="RevitVersionResolution.props"/>
 	<PropertyGroup>
 		<BuildTasksDirectoryRoot>$(MSBuildThisFileDirectory)..\tasks\</BuildTasksDirectoryRoot>
 		<BuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">net10.0</BuildTasksTFM>

@@ -1,0 +1,47 @@
+﻿using Xunit;
+
+namespace Toolkit.Revit.Sdk.Tests;
+
+/// <summary>
+/// Тесты для таргета <c>ValidateMajorRevitVersion</c>, который останавливает сборку,
+/// если версия Revit не была распознана из имени конфигурации.
+/// </summary>
+public sealed class ValidateMajorRevitVersionTests
+{
+    [Fact]
+    public void Build_UnresolvedRevitVersion_FailsWithError()
+    {
+        var (success, errors) = RunValidateTarget(revitVersion: "-1");
+
+        Assert.False(success);
+        Assert.Contains(errors, e => e.Contains("Target Revit version cannot be resolved", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Build_ResolvedRevitVersion_Succeeds()
+    {
+        var (success, errors) = RunValidateTarget(revitVersion: "2025");
+
+        Assert.True(success);
+        Assert.Empty(errors);
+    }
+
+    private static (bool Success, List<string> Errors) RunValidateTarget(string revitVersion)
+    {
+        var xml = $"""
+            <Project>
+              <PropertyGroup>
+                <RevitVersion>{revitVersion}</RevitVersion>
+              </PropertyGroup>
+              <Import Project="{SdkPaths.File("ValidateMajorRevitVersion.targets")}" />
+            </Project>
+            """;
+
+        var projectInstance = TestProjectFactory.CreateProjectInstance(xml);
+        var logger = new InMemoryLogger();
+
+        var success = projectInstance.Build(["ValidateMajorRevitVersion"], [logger]);
+
+        return (success, logger.Errors);
+    }
+}

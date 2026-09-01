@@ -16,4 +16,7 @@
   <Project Path="src/Toolkit.Revit.Sdk/Toolkit.Revit.Sdk.csproj">
     <Platform Project="x64" />
   </Project>
+  <Project Path="tests/Toolkit.Revit.Sdk.Tests/Toolkit.Revit.Sdk.Tests.csproj">
+    <Platform Project="x64" />
+  </Project>
 </Solution>
