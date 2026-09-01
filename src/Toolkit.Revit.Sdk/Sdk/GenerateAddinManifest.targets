@@ -11,6 +11,7 @@
 			VendorId="$(Authors)"
 			RevitVersion="$(MajorRevitVersion)"
 			VendorDescription="$(Authors)"
+			ProjectName="$(MSBuildProjectName)"
 			ExternalApplications="@(ExternalApplication)"
 			ExternalCommands="@(ExternalCommand)"
 			Output="$(AddinOutputDirectory)">

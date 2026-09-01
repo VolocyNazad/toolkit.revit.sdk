@@ -30,6 +30,12 @@ public sealed class GenerateAddinManifest : Task
     public string RevitVersion { get; set; } = string.Empty;
 
     /// <summary>
+    /// Возвращает или задаёт имя проекта, используемое по умолчанию для элементов манифеста,
+    /// у которых не задано метаданное <c>Name</c>.
+    /// </summary>
+    public string ProjectName { get; set; } = string.Empty;
+
+    /// <summary>
     /// Возвращает или задаёт внешние приложения, добавляемые в манифест.
     /// </summary>
     public ITaskItem[] ExternalApplications { get; set; } = [];
@@ -56,9 +62,10 @@ public sealed class GenerateAddinManifest : Task
         List<RevitApplicationData> apps = [];
         foreach (var app in ExternalApplications)
         {
+            var name = GetNameOrDefault(app);
             RevitApplicationData data = new()
             {
-                Name = app.GetMetadata("Name"),
+                Name = name,
                 Assembly = Assembly,
                 FullClassName = app.GetMetadata("FullClassName"),
                 VendorId = VendorId,
@@ -70,15 +77,17 @@ public sealed class GenerateAddinManifest : Task
         List<RevitCommandData> commands = [];
         foreach (var cmd in ExternalCommands)
         {
+            var name = GetNameOrDefault(cmd);
+            var text = cmd.GetMetadata("Text");
             RevitCommandData data = new()
             {
-                Name = cmd.GetMetadata("Name"),
+                Name = name,
                 Assembly = Assembly,
                 FullClassName = cmd.GetMetadata("FullClassName"),
                 VendorId = VendorId,
                 VendorDescription = VendorDescription,
                 VisibilityMode = cmd.GetMetadata("VisibilityMode"),
-                Text = cmd.GetMetadata("Text"),
+                Text = string.IsNullOrEmpty(text) ? name : text,
             };
             commands.Add(data);
         }
@@ -95,6 +104,17 @@ public sealed class GenerateAddinManifest : Task
         ManifestPath = outputPath;
 
         return true;
+    }
+
+    /// <summary>
+    /// Возвращает имя элемента манифеста из метаданных <c>Name</c>, либо, если оно не задано, имя проекта.
+    /// </summary>
+    /// <param name="item">Элемент MSBuild, представляющий приложение или команду Revit.</param>
+    /// <returns>Итоговое имя элемента манифеста.</returns>
+    private string GetNameOrDefault(ITaskItem item)
+    {
+        var name = item.GetMetadata("Name");
+        return string.IsNullOrEmpty(name) ? ProjectName : name;
     }
 
     /// <summary>
