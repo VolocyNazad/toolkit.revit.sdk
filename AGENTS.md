@@ -13,6 +13,8 @@ Before changing existing tests or writing new ones, ask the user first – confi
 
 Commit messages follow Conventional Commits (`<type>(<scope>): <description>`, e.g. `feat(manifest): ...`, `fix(...): ...`, `docs(agents): ...`, `test(...): ...`, `chore(...): ...`, `refactor(...): ...`) - scope optional but preferred when it clarifies what changed.
 
+Don't `git push` - commit locally and leave pushing to the user, unless they explicitly ask for a push.
+
 ## About
 
 This repo is the source for `VolocyNazad.Revit.Sdk` (published under the
