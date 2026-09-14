@@ -3,8 +3,8 @@
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Тесты для таргета <c>ValidateMajorRevitVersion</c>, который останавливает сборку,
-/// если версия Revit не была распознана из имени конфигурации.
+/// Tests for the <c>ValidateMajorRevitVersion</c> target, which stops the build
+/// if the Revit version could not be determined from the configuration name.
 /// </summary>
 public sealed class ValidateMajorRevitVersionTests
 {

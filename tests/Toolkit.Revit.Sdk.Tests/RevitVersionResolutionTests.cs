@@ -3,7 +3,7 @@
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Тесты для разбора версии Revit и выбора целевого фреймворка в <c>RevitVersionResolution.props</c>.
+/// Tests for parsing the Revit version and selecting the target framework in <c>RevitVersionResolution.props</c>.
 /// </summary>
 public sealed class RevitVersionResolutionTests
 {

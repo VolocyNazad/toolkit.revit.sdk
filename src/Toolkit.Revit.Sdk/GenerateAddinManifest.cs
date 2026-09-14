@@ -1,57 +1,60 @@
-﻿using Microsoft.Build.Framework;
+using Microsoft.Build.Framework;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 using Task = Microsoft.Build.Utilities.Task;
 
 namespace Toolkit.Revit.Sdk;
 
 /// <summary>
-/// Создаёт манифест расширения Revit на основе элементов MSBuild.
+/// Generates a Revit extension manifest from MSBuild items.
 /// </summary>
 public sealed class GenerateAddinManifest : Task
 {
     /// <summary>
-    /// Возвращает или задаёт путь к сборке расширения.
+    /// Gets or sets the path to the extension assembly.
     /// </summary>
     public string Assembly { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт идентификатор разработчика расширения.
+    /// Gets or sets the extension vendor's identifier.
     /// </summary>
     public string VendorId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт описание разработчика расширения.
+    /// Gets or sets the extension vendor's description.
     /// </summary>
     public string VendorDescription { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт целевую версию Revit.
+    /// Gets or sets the target Revit version.
     /// </summary>
     public string RevitVersion { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт имя проекта, используемое по умолчанию для элементов манифеста,
-    /// у которых не задано метаданное <c>Name</c>.
+    /// Gets or sets the project name used as the default for manifest items
+    /// that do not have the <c>Name</c> metadata set.
     /// </summary>
     public string ProjectName { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт внешние приложения, добавляемые в манифест.
+    /// Gets or sets the external applications added to the manifest.
     /// </summary>
+    [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "MSBuild task item parameters require arrays.")]
     public ITaskItem[] ExternalApplications { get; set; } = [];
 
     /// <summary>
-    /// Возвращает или задаёт внешние команды, добавляемые в манифест.
+    /// Gets or sets the external commands added to the manifest.
     /// </summary>
+    [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "MSBuild task item parameters require arrays.")]
     public ITaskItem[] ExternalCommands { get; set; } = [];
 
     /// <summary>
-    /// Возвращает или задаёт выходной каталог.
+    /// Gets or sets the output directory.
     /// </summary>
     public string Output { get; set; } = string.Empty;
 
     /// <summary>
-    /// Возвращает или задаёт путь к сгенерированному манифесту.
+    /// Gets or sets the path to the generated manifest.
     /// </summary>
     [Output]
     public string? ManifestPath { get; set; }
@@ -107,10 +110,10 @@ public sealed class GenerateAddinManifest : Task
     }
 
     /// <summary>
-    /// Возвращает имя элемента манифеста из метаданных <c>Name</c>, либо, если оно не задано, имя проекта.
+    /// Returns the manifest item's name from the <c>Name</c> metadata, or the project name if it is not set.
     /// </summary>
-    /// <param name="item">Элемент MSBuild, представляющий приложение или команду Revit.</param>
-    /// <returns>Итоговое имя элемента манифеста.</returns>
+    /// <param name="item">The MSBuild item representing a Revit application or command.</param>
+    /// <returns>The resulting manifest item name.</returns>
     private string GetNameOrDefault(ITaskItem item)
     {
         var name = item.GetMetadata("Name");
@@ -118,11 +121,11 @@ public sealed class GenerateAddinManifest : Task
     }
 
     /// <summary>
-    /// Создаёт XML-документ манифеста для указанных приложений и команд.
+    /// Builds the manifest XML document for the given applications and commands.
     /// </summary>
-    /// <param name="apps">Внешние приложения Revit.</param>
-    /// <param name="commands">Внешние команды Revit.</param>
-    /// <returns>Сформированный XML-документ манифеста.</returns>
+    /// <param name="apps">The Revit external applications.</param>
+    /// <param name="commands">The Revit external commands.</param>
+    /// <returns>The generated manifest XML document.</returns>
     private static XDocument GenerateAddInFile(List<RevitApplicationData> apps, List<RevitCommandData> commands)
     {
         XElement root = new("RevitAddIns");

@@ -3,8 +3,8 @@
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Тесты для таргета <c>RemoveRevitAPICopyLocal</c>, который исключает <c>RevitAPI.dll</c>/<c>RevitAPIUI.dll</c>
-/// из копируемых при сборке зависимостей (эти сборки предоставляет сам Revit).
+/// Tests for the <c>RemoveRevitAPICopyLocal</c> target, which excludes <c>RevitAPI.dll</c>/<c>RevitAPIUI.dll</c>
+/// from the dependencies copied on build (these assemblies are provided by Revit itself).
 /// </summary>
 public sealed class RemoveRevitApiCopyLocalTests
 {

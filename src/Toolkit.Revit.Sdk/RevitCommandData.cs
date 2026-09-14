@@ -1,17 +1,17 @@
 ﻿namespace Toolkit.Revit.Sdk;
 
 /// <summary>
-/// Содержит данные внешней команды Revit.
+/// Holds the data for a Revit external command.
 /// </summary>
 internal sealed class RevitCommandData : RevitManifestData
 {
     /// <summary>
-    /// Возвращает текст команды, отображаемый в интерфейсе Revit.
+    /// Gets the command text displayed in the Revit UI.
     /// </summary>
     public string? Text { get; init; }
 
     /// <summary>
-    /// Возвращает режим видимости команды.
+    /// Gets the command's visibility mode.
     /// </summary>
     public string? VisibilityMode { get; init; }
 }

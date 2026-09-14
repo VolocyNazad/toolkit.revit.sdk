@@ -5,17 +5,17 @@ using Microsoft.Build.Framework;
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Находит каталог с файлами SDK (<c>src/Toolkit.Revit.Sdk/Sdk</c>) относительно корня репозитория,
-/// чтобы тесты могли импортировать реальные <c>.props</c>/<c>.targets</c>, а не их копии.
+/// Locates the directory with the SDK files (<c>src/Toolkit.Revit.Sdk/Sdk</c>) relative to the repository root,
+/// so tests can import the real <c>.props</c>/<c>.targets</c> files instead of copies of them.
 /// </summary>
 internal static class SdkPaths
 {
     private static readonly Lazy<string> _directory = new(FindSdkDirectory);
 
     /// <summary>
-    /// Возвращает полный путь к файлу SDK с указанным именем (например, <c>Sdk.props</c>).
+    /// Returns the full path to the SDK file with the given name (e.g. <c>Sdk.props</c>).
     /// </summary>
-    /// <param name="fileName">Имя файла внутри каталога <c>Sdk</c>.</param>
+    /// <param name="fileName">The file name inside the <c>Sdk</c> directory.</param>
     public static string File(string fileName) => Path.Combine(_directory.Value, fileName);
 
     private static string FindSdkDirectory()
@@ -26,22 +26,22 @@ internal static class SdkPaths
 
         if (directory is null)
             throw new InvalidOperationException(
-                $"Не удалось найти корень репозитория (Toolkit.Revit.Sdk.slnx) выше '{AppContext.BaseDirectory}'.");
+                $"Could not find the repository root (Toolkit.Revit.Sdk.slnx) above '{AppContext.BaseDirectory}'.");
 
         return Path.Combine(directory.FullName, "src", "Toolkit.Revit.Sdk", "Sdk");
     }
 }
 
 /// <summary>
-/// Создаёт временные MSBuild-проекты для проверки отдельных <c>.props</c>/<c>.targets</c> файлов SDK
-/// в изоляции - без реальной сборки C#-кода или запуска Revit.
+/// Creates temporary MSBuild projects for testing individual SDK <c>.props</c>/<c>.targets</c> files
+/// in isolation - without a real C# code build or launching Revit.
 /// </summary>
 internal static class TestProjectFactory
 {
     /// <summary>
-    /// Оценивает проект (без выполнения таргетов) и возвращает результат для чтения свойств.
+    /// Evaluates the project (without running any targets) and returns the result for reading properties.
     /// </summary>
-    /// <param name="projectXml">Полное содержимое временного .csproj-файла.</param>
+    /// <param name="projectXml">The full contents of the temporary .csproj file.</param>
     public static Project CreateEvaluatedProject(string projectXml)
     {
         var path = WriteTempProjectFile(projectXml);
@@ -56,9 +56,9 @@ internal static class TestProjectFactory
     }
 
     /// <summary>
-    /// Создаёт исполняемый экземпляр проекта для запуска конкретного таргета.
+    /// Creates an executable project instance for running a specific target.
     /// </summary>
-    /// <param name="projectXml">Полное содержимое временного .csproj-файла.</param>
+    /// <param name="projectXml">The full contents of the temporary .csproj file.</param>
     public static ProjectInstance CreateProjectInstance(string projectXml)
     {
         var path = WriteTempProjectFile(projectXml);
@@ -81,12 +81,12 @@ internal static class TestProjectFactory
 }
 
 /// <summary>
-/// Простой логгер MSBuild, накапливающий сообщения об ошибках для проверки в тестах.
+/// A simple MSBuild logger that accumulates error messages for verification in tests.
 /// </summary>
 internal sealed class InMemoryLogger : ILogger
 {
     /// <summary>
-    /// Возвращает тексты всех ошибок, залогированных во время сборки.
+    /// Returns the text of all errors logged during the build.
     /// </summary>
     public List<string> Errors { get; } = [];
 

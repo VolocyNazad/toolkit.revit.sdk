@@ -4,14 +4,14 @@ using Microsoft.Build.Locator;
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Регистрирует реальную установленную сборку MSBuild до первого обращения к типам
-/// <c>Microsoft.Build.*</c> в тестах. Без этого evaluation/execution API не могут
-/// разрешить импорт <c>Sdk="Microsoft.NET.Sdk"</c> и падают с ошибкой поиска SDK.
+/// Registers the real, installed MSBuild assembly before <c>Microsoft.Build.*</c> types
+/// are first accessed in tests. Without this, the evaluation/execution API cannot
+/// resolve the <c>Sdk="Microsoft.NET.Sdk"</c> import and fails with an SDK resolution error.
 /// </summary>
 internal static class MSBuildLocatorInitializer
 {
     /// <summary>
-    /// Выполняется средой выполнения при загрузке модуля - раньше, чем любой тестовый метод.
+    /// Runs when the runtime loads the module - before any test method.
     /// </summary>
     [ModuleInitializer]
     public static void Initialize()

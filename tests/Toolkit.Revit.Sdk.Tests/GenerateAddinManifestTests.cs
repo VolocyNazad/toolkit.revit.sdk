@@ -6,7 +6,7 @@ using Xunit;
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Тесты для <see cref="GenerateAddinManifest"/>.
+/// Tests for <see cref="GenerateAddinManifest"/>.
 /// </summary>
 public sealed class GenerateAddinManifestTests : IDisposable
 {

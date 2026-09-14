@@ -3,7 +3,7 @@
 namespace Toolkit.Revit.Sdk.Tests;
 
 /// <summary>
-/// Тесты для генерации condition-констант в <c>SetupRevitDefineConstants.props</c>.
+/// Tests for generating condition constants in <c>SetupRevitDefineConstants.props</c>.
 /// </summary>
 public sealed class DefineConstantsTests
 {
@@ -17,7 +17,7 @@ public sealed class DefineConstantsTests
     }
 
     [Theory]
-    // MajorRevitVersion=2025: BEFORE-константы включительно вплоть до 2025 и выше.
+    // MajorRevitVersion=2025: BEFORE constants are defined inclusively for 2025 and later.
     [InlineData("2025", "BEFORE2025", true)]
     [InlineData("2025", "BEFORE2026", true)]
     [InlineData("2025", "BEFORE2024", false)]

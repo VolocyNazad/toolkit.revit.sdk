@@ -1,7 +1,7 @@
 ﻿namespace Toolkit.Revit.Sdk;
 
 /// <summary>
-/// Содержит данные внешнего приложения Revit.
+/// Holds the data for a Revit external application.
 /// </summary>
 internal sealed class RevitApplicationData : RevitManifestData
 {

@@ -1,37 +1,37 @@
 ﻿namespace Toolkit.Revit.Sdk;
 
 /// <summary>
-/// Содержит общие данные элемента манифеста Revit.
+/// Holds the common data for a Revit manifest item.
 /// </summary>
 internal class RevitManifestData
 {
     /// <summary>
-    /// Возвращает уникальный идентификатор расширения.
+    /// Gets the unique identifier of the extension.
     /// </summary>
     public Guid AddInId { get; } = Guid.NewGuid();
 
     /// <summary>
-    /// Возвращает имя расширения.
+    /// Gets the extension name.
     /// </summary>
     public required string Name { get; init; }
 
     /// <summary>
-    /// Возвращает путь к сборке расширения.
+    /// Gets the path to the extension assembly.
     /// </summary>
     public required string Assembly { get; init; }
 
     /// <summary>
-    /// Возвращает полное имя класса расширения.
+    /// Gets the extension's full class name.
     /// </summary>
     public required string FullClassName { get; init; }
 
     /// <summary>
-    /// Возвращает идентификатор разработчика расширения.
+    /// Gets the extension vendor's identifier.
     /// </summary>
     public required string VendorId { get; init; }
 
     /// <summary>
-    /// Возвращает описание разработчика расширения.
+    /// Gets the extension vendor's description.
     /// </summary>
     public required string VendorDescription { get; init; }
 }
