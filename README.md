@@ -4,22 +4,22 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
 [![VolocyNazad](https://img.shields.io/badge/VolocyNazad-blue.svg)](https://github.com/VolocyNazad)
 
-MSBuild SDK для разработки расширений Autodesk Revit. Он сокращает настройку проекта плагина, выбирает целевую платформу для указанной версии Revit и автоматизирует типовые операции сборки.
+An MSBuild SDK for developing Autodesk Revit extensions. It streamlines plugin project setup, selects the target platform for a given Revit version, and automates common build operations.
 
-## Возможности
+## Features
 
-- поддержка Revit 2021–2027;
-- выбор целевой версии Revit через имя конфигурации сборки;
-- автоматический выбор `net48` для Revit до 2024 года и `net8.0-windows` для Revit 2025–2026;
-- константы условной компиляции для разных версий API: `VERSION_2025`, `IS2025`, `BEFORE2026`, `AFTER2024` и другие;
-- исключение `RevitAPI.dll` и `RevitAPIUI.dll` из выходного каталога;
-- запуск установленного Revit при отладке;
-- генерация манифеста `.addin` для внешних приложений и команд;
-- опциональное объединение зависимостей с помощью ILRepack.
+- support for Revit 2021–2027;
+- selecting the target Revit version via the build configuration name;
+- automatic selection of `net48` for Revit before 2024 and `net8.0-windows` for Revit 2025–2026;
+- conditional compilation constants for different API versions: `VERSION_2025`, `IS2025`, `BEFORE2026`, `AFTER2024`, and others;
+- excluding `RevitAPI.dll` and `RevitAPIUI.dll` from the output directory;
+- launching the installed Revit during debugging;
+- generating an `.addin` manifest for external applications and commands;
+- optional dependency merging via ILRepack.
 
-## Подключение
+## Usage
 
-Укажите пакет SDK и его версию в файле проекта:
+Specify the SDK package and its version in the project file:
 
 ```xml
 <Project Sdk="VolocyNazad.Revit.Sdk/VERSION">
@@ -29,11 +29,11 @@ MSBuild SDK для разработки расширений Autodesk Revit. О�
 </Project>
 ```
 
-Замените `VERSION` на требуемую версию пакета. Имя конфигурации должно иметь формат `<Debug|Release>_<год>`, например `Debug_2025`. SDK извлекает год после символа `_` и использует его как целевую версию Revit.
+Replace `VERSION` with the package version you need. The configuration name must follow the `<Debug|Release>_<year>` format, e.g. `Debug_2025`. The SDK extracts the year after the `_` character and uses it as the target Revit version.
 
-## Генерация манифеста
+## Manifest generation
 
-Чтобы создавать `.addin` при сборке, включите `GenerateAddinOnBuild` и объявите классы расширения:
+To generate `.addin` on build, enable `GenerateAddinOnBuild` and declare the extension classes:
 
 ```xml
 <PropertyGroup>
@@ -57,19 +57,19 @@ MSBuild SDK для разработки расширений Autodesk Revit. О�
 </ItemGroup>
 ```
 
-Значение `Authors` используется как `VendorId` и `VendorDescription` в сгенерированном манифесте.
+The `Authors` value is used as `VendorId` and `VendorDescription` in the generated manifest.
 
-После сборки манифест будет создан по пути:
+After the build, the manifest will be created at:
 
 ```text
 <AddinOutputDirectory>/addins/<RevitVersion>/<AssemblyName>.addin
 ```
 
-По умолчанию `AddinOutputDirectory` указывает на каталог проекта.
+By default, `AddinOutputDirectory` points to the project directory.
 
-## Отладка в Revit
+## Debugging in Revit
 
-Добавьте свойство `LaunchRevit`, чтобы запускать Revit вместе с отладчиком:
+Add the `LaunchRevit` property to launch Revit together with the debugger:
 
 ```xml
 <PropertyGroup>
@@ -77,11 +77,11 @@ MSBuild SDK для разработки расширений Autodesk Revit. О�
 </PropertyGroup>
 ```
 
-По умолчанию SDK запускает `C:\Program Files\Autodesk\Revit <год>\Revit.exe` с аргументом `/language ENG`. Путь и аргументы можно переопределить свойствами `StartProgram` и `StartArguments`.
+By default, the SDK launches `C:\Program Files\Autodesk\Revit <year>\Revit.exe` with the `/language ENG` argument. The path and arguments can be overridden via the `StartProgram` and `StartArguments` properties.
 
-## Объединение зависимостей
+## Dependency merging
 
-Для объединения библиотек в сборку плагина добавьте пакет ILRepack и включите переупаковку:
+To merge libraries into the plugin assembly, add the ILRepack package and enable repacking:
 
 ```xml
 <PropertyGroup>
@@ -94,14 +94,23 @@ MSBuild SDK для разработки расширений Autodesk Revit. О�
 </ItemGroup>
 ```
 
-## Сборка SDK
+## Building the SDK
 
 ```powershell
 dotnet build Toolkit.Revit.Sdk.slnx -p:Platform=x64
 ```
 
-NuGet-пакет создаётся автоматически в каталоге `artifacts`.
+The NuGet package is created automatically in the `artifacts` directory.
 
-## Лицензия
+## License
 
-Проект распространяется по лицензии [MIT](LICENSE.md).
+The project is distributed under the [MIT](LICENSE.md) license.
+
+## Development documentation
+
+- [Development policy](docs/policies/development.md)
+- [Repository guide and technology stack](docs/repository.md)
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.

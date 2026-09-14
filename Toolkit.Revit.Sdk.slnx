@@ -12,6 +12,8 @@
     <File Path="global.json" />
     <File Path="LICENSE.md" />
     <File Path="README.md" />
+    <File Path="NuGet.config" />
+    <File Path=".editorconfig" />
   </Folder>
   <Project Path="src/Toolkit.Revit.Sdk/Toolkit.Revit.Sdk.csproj">
     <Platform Project="x64" />
@@ -19,4 +21,18 @@
   <Project Path="tests/Toolkit.Revit.Sdk.Tests/Toolkit.Revit.Sdk.Tests.csproj">
     <Platform Project="x64" />
   </Project>
+  <Folder Name="/docs/">
+    <File Path="docs/repository.md" />
+  </Folder>
+  <Folder Name="/docs/policies/">
+    <File Path="docs/policies/development.md" />
+  </Folder>
+  <Folder Name="/solutionItems/.github/workflows/">
+    <File Path=".github/workflows/build-and-test.yml" />
+    <File Path=".github/workflows/publish-nuget.yml" />
+    <File Path=".github/workflows/repository-policy.yml" />
+  </Folder>
+  <Folder Name="/solutionItems/scripts/">
+    <File Path="scripts/Validate-Repository.ps1" />
+  </Folder>
 </Solution>
