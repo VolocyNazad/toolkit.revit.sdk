@@ -1,0 +1,31 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  build:
+    name: windows-latest
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # for minver
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
+    - name: Build
+      run: dotnet build --configuration Release -p:Platform=x64 /nologo
+    - name: Run tests
+      run: dotnet test --project tests/Toolkit.Revit.Sdk.Tests/Toolkit.Revit.Sdk.Tests.csproj --configuration Release --no-build -p:Platform=x64
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: VolocyNazad.Revit.Sdk
+        path: artifacts/*

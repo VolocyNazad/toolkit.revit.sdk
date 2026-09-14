@@ -1,0 +1,60 @@
+name: Publish NuGet package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: windows-latest
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # for minver
+    - name: Verify release tag
+      shell: pwsh
+      run: |
+        $tags = @(git tag --points-at HEAD | Where-Object { $_ -match '^v\d+\.\d+\.\d+$' })
+        if ($tags.Count -ne 1) {
+          throw "The selected commit must have exactly one stable tag such as 'v1.2.3'."
+        }
+        "RELEASE_VERSION=$($tags[0].Substring(1))" | Out-File -FilePath $env:GITHUB_ENV -Append
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: global.json
+    - name: Clean package output
+      shell: pwsh
+      run: Remove-Item artifacts -Recurse -Force -ErrorAction SilentlyContinue
+    - name: Build
+      run: dotnet build --configuration Release -p:Platform=x64 /nologo
+    - name: Run tests
+      run: dotnet test --project tests/Toolkit.Revit.Sdk.Tests/Toolkit.Revit.Sdk.Tests.csproj --configuration Release --no-build -p:Platform=x64
+    - name: Verify NuGet package
+      shell: pwsh
+      run: |
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $packages = @(Get-ChildItem "artifacts" -Recurse -File -Filter *.nupkg)
+        if ($packages.Count -ne 1) { throw "Expected exactly one NuGet package, found $($packages.Count)." }
+        $archive = [System.IO.Compression.ZipFile]::OpenRead($packages[0].FullName)
+        try {
+          $entries = @($archive.Entries | Where-Object { $_.FullName -like '*.nuspec' })
+          if ($entries.Count -ne 1) { throw "Expected exactly one nuspec in $($packages[0].Name)." }
+          $reader = [System.IO.StreamReader]::new($entries[0].Open())
+          try { [xml]$nuspec = $reader.ReadToEnd() } finally { $reader.Dispose() }
+        } finally { $archive.Dispose() }
+        $id = $nuspec.SelectSingleNode("/*[local-name()='package']/*[local-name()='metadata']/*[local-name()='id']").InnerText
+        $version = $nuspec.SelectSingleNode("/*[local-name()='package']/*[local-name()='metadata']/*[local-name()='version']").InnerText
+        if ($id -ne 'VolocyNazad.Revit.Sdk') { throw "Unexpected package id '$id'." }
+        $expectedVersion = $env:RELEASE_VERSION
+        if ($version -ne $expectedVersion) { throw "Package version '$version' does not match expected release version '$expectedVersion'." }
+
+    - name: Publish NuGet package
+      run: |
+        $packages = @(Get-ChildItem "artifacts" -Recurse -File -Filter *.nupkg)
+        if ($packages.Count -ne 1) { throw "Expected exactly one validated NuGet package, found $($packages.Count)." }
+        foreach($file in $packages) {
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        }
