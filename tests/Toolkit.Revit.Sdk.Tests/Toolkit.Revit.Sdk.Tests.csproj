@@ -5,6 +5,8 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<IsPublishable>false</IsPublishable>
+		<IsTestProject>true</IsTestProject>
+		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,12 +17,12 @@
 			hence ExcludeAssets="Runtime" here (mirrors the same pattern used by the SDK project itself
 			for GenerateAddinManifest's task-time reference).
 		-->
-		<PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" />
-		<PackageReference Include="Microsoft.Build" Version="18.4.0" ExcludeAssets="Runtime" />
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.4.0" ExcludeAssets="Runtime" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
-		<PackageReference Include="xunit" Version="2.9.3" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+		<PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
+		<PackageReference Include="Microsoft.Build" Version="18.9.6" ExcludeAssets="Runtime" />
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.9.6" ExcludeAssets="Runtime" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+		<PackageReference Include="xunit.v3" Version="4.0.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

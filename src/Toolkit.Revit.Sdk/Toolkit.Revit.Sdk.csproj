@@ -4,6 +4,8 @@
 		<Platforms>x64</Platforms>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<TargetFrameworks>net48;net10.0</TargetFrameworks>
+		<!-- MSBuild SDK task assemblies intentionally belong under tasks/, not lib/. -->
+		<NoWarn>$(NoWarn);NU5100</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -52,8 +54,11 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.4.0" ExcludeAssets="Runtime" />
-		<PackageReference Include="MinVer" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.9.6" ExcludeAssets="Runtime" />
+		<PackageReference Include="MinVer" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 </Project>
