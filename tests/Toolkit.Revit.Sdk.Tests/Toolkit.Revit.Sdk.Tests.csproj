@@ -18,10 +18,10 @@
 			for GenerateAddinManifest's task-time reference).
 		-->
 		<PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
-		<PackageReference Include="Microsoft.Build" Version="18.9.6" ExcludeAssets="Runtime" />
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.9.6" ExcludeAssets="Runtime" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
-		<PackageReference Include="xunit.v3" Version="4.0.0" />
+		<PackageReference Include="Microsoft.Build" Version="18.10.1" ExcludeAssets="Runtime" />
+		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.10.1" ExcludeAssets="Runtime" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+		<PackageReference Include="xunit.v3" Version="4.0.1" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
