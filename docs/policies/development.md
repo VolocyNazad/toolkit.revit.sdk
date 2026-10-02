@@ -17,6 +17,10 @@ Don't `git push` - commit locally and leave pushing to the user, unless they exp
 
 Keep `CHANGELOG.md` up to date, in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format - add an entry under `## [Unreleased]` (in the right category: Added/Changed/Fixed/Removed/...) as part of the same change, not as a separate follow-up.
 
+## Release changelog
+
+Before creating a release tag, move the content of `## [Unreleased]` in `CHANGELOG.md` into a new `## [VERSION] - YYYY-MM-DD` section directly below it, where `VERSION` is the tag without a leading `v`, and leave `## [Unreleased]` empty. Commit that change and create the tag on that commit, so the changelog at the tagged commit names the released version and carries no unreleased entries. While moving the entries, review them against the previous release: keep changes a consumer of that release can observe, merge related entries, and drop fixes for behavior that was never released. The publish workflow enforces this before building: it refuses to publish when `## [Unreleased]` contains any entry or when the changelog has no section for the tagged version. Empty category headings under `Unreleased` are tolerated.
+
 ## .NET SDK selection
 
 Use the repository-root `global.json` for local builds and CI: SDK `10.0.103` or a later stable SDK in the `10.0` major/minor line (`rollForward: latestFeature`, `allowPrerelease: false`). Do not roll forward to another major/minor line without updating this policy and `global.json` together. GitHub Actions setup steps must read `global-json-file: global.json` after checkout. Additional SDKs may be installed to supply runtimes for older test targets; they do not replace the SDK selected by `global.json`. This policy does not change project target frameworks.
