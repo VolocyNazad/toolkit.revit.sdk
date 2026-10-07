@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-07
+
 ### Added
 
 - Support Revit 2027 on `net10.0-windows` (`net48` for 2021–2024, `net8.0-windows` for 2025–2026), with the `IsNet10` property and the `AFTER2027` conditional-compilation constant.
