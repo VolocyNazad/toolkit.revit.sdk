@@ -1,5 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Target Name="ValidateMajorRevitVersion" BeforeTargets="BeforeBuild" Condition="'$(RevitVersion)' == '-1'">
-		<Error Text="Target Revit version cannot be resolved. The configuration must contain a version number, for example: Release.R2026 or Release.R26."/>
+	<Target Name="ValidateMajorRevitVersion" BeforeTargets="BeforeBuild" Condition="'$(MajorRevitVersion)' != '2021' and '$(MajorRevitVersion)' != '2022' and '$(MajorRevitVersion)' != '2023' and '$(MajorRevitVersion)' != '2024' and '$(MajorRevitVersion)' != '2025' and '$(MajorRevitVersion)' != '2026' and '$(MajorRevitVersion)' != '2027'">
+		<Error Text="Target Revit version '$(MajorRevitVersion)' is not supported. Supported versions are 2021-2027. The configuration must contain a version number, for example: Release_2026 or Debug_2027.0.0."/>
 	</Target>
 </Project>

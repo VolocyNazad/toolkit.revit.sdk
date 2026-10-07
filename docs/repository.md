@@ -7,10 +7,12 @@ Read and follow the [development policy](policies/development.md) alongside this
 
 This repo is the source for `VolocyNazad.Revit.Sdk` (published under the
 `VolocyNazad` org), a custom MSBuild SDK for Autodesk Revit add-in
-projects: supports Revit 2021-2027, picks `net48` vs `net8.0-windows`
+projects: supports Revit 2021-2027, picks `net48` (`2021`-`2024`) vs
+`net8.0-windows` (`2025`-`2026`) vs `net10.0-windows` (`2027`)
 automatically based on the target Revit version encoded in the build
 configuration name, defines version conditional-compilation constants
-(`VERSION_2025`, `IS2025`, `BEFORE2026`, `AFTER2024`, ...), excludes
+(`VERSION_2025`, `IS2025`, `BEFORE2026`, `AFTER2024`, ..., up to `AFTER2027`),
+validates that the target Revit version is within 2021-2027, excludes
 `RevitAPI.dll`/`RevitAPIUI.dll` from output, generates the `.addin`
 manifest, and can merge dependencies via ILRepack. It's what
 `impact.revitaddinapi/revit` and every `toolkit.revit.*` repo build

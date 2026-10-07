@@ -24,6 +24,12 @@ public sealed class DefineConstantsTests
     [InlineData("2025", "AFTER2025", true)]
     [InlineData("2025", "AFTER2024", true)]
     [InlineData("2025", "AFTER2026", false)]
+    [InlineData("2027", "VERSION_2027", true)]
+    [InlineData("2027", "IS2027", true)]
+    [InlineData("2027", "BEFORE2027", true)]
+    [InlineData("2027", "BEFORE2026", false)]
+    [InlineData("2027", "AFTER2027", true)]
+    [InlineData("2026", "AFTER2027", false)]
     public void Evaluate_MajorRevitVersion_DefinesBeforeAfterConstantsInclusively(
         string majorRevitVersion, string expectedConstant, bool shouldBeDefined)
     {

@@ -8,30 +8,42 @@ namespace Toolkit.Revit.Sdk.Tests;
 /// </summary>
 public sealed class ValidateMajorRevitVersionTests
 {
-    [Fact]
-    public void Build_UnresolvedRevitVersion_FailsWithError()
+    [Theory]
+    [InlineData("-1")]
+    [InlineData("")]
+    [InlineData("2020")]
+    [InlineData("2028")]
+    [InlineData("R2026")]
+    public void Build_UnsupportedRevitVersion_FailsWithError(string majorRevitVersion)
     {
-        var (success, errors) = RunValidateTarget(revitVersion: "-1");
+        var (success, errors) = RunValidateTarget(majorRevitVersion);
 
         Assert.False(success);
-        Assert.Contains(errors, e => e.Contains("Target Revit version cannot be resolved", StringComparison.Ordinal));
+        Assert.Contains(errors, e => e.Contains("is not supported", StringComparison.Ordinal));
     }
 
-    [Fact]
-    public void Build_ResolvedRevitVersion_Succeeds()
+    [Theory]
+    [InlineData("2021")]
+    [InlineData("2022")]
+    [InlineData("2023")]
+    [InlineData("2024")]
+    [InlineData("2025")]
+    [InlineData("2026")]
+    [InlineData("2027")]
+    public void Build_SupportedRevitVersion_Succeeds(string majorRevitVersion)
     {
-        var (success, errors) = RunValidateTarget(revitVersion: "2025");
+        var (success, errors) = RunValidateTarget(majorRevitVersion);
 
         Assert.True(success);
         Assert.Empty(errors);
     }
 
-    private static (bool Success, List<string> Errors) RunValidateTarget(string revitVersion)
+    private static (bool Success, List<string> Errors) RunValidateTarget(string majorRevitVersion)
     {
         var xml = $"""
             <Project>
               <PropertyGroup>
-                <RevitVersion>{revitVersion}</RevitVersion>
+                <MajorRevitVersion>{majorRevitVersion}</MajorRevitVersion>
               </PropertyGroup>
               <Import Project="{SdkPaths.File("ValidateMajorRevitVersion.targets")}" />
             </Project>

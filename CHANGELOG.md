@@ -6,6 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Support Revit 2027 on `net10.0-windows` (`net48` for 2021–2024, `net8.0-windows` for 2025–2026), with the `IsNet10` property and the `AFTER2027` conditional-compilation constant.
+- Validate that the target Revit version encoded in the build configuration name is within 2021–2027 and fail the build otherwise.
+
+### Fixed
+
+- Report configuration names without a version suffix (e.g. plain `Debug`) through the same version validation error instead of failing MSBuild evaluation.
+
 ## [1.0.45] - 2026-09-14
 
 ### Added

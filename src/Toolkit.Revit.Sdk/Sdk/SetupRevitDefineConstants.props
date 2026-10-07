@@ -37,6 +37,7 @@
 		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2024">$(DefineConstants);AFTER2024</DefineConstants>
 		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2025">$(DefineConstants);AFTER2025</DefineConstants>
 		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2026">$(DefineConstants);AFTER2026</DefineConstants>
+		<DefineConstants Condition="'$(MajorRevitVersion)' != '' and $(MajorRevitVersion) &gt;= 2027">$(DefineConstants);AFTER2027</DefineConstants>
 
 		<DefineConstants Condition="$(Configuration.StartsWith('Debug'))">$(DefineConstants);DEBUG</DefineConstants>
 		<DefineConstants Condition="$(Configuration.StartsWith('Release'))">$(DefineConstants);RELEASE</DefineConstants>

@@ -10,7 +10,7 @@ An MSBuild SDK for developing Autodesk Revit extensions. It streamlines plugin p
 
 - support for Revit 2021–2027;
 - selecting the target Revit version via the build configuration name;
-- automatic selection of `net48` for Revit before 2024 and `net8.0-windows` for Revit 2025–2026;
+- automatic selection of `net48` for Revit 2021–2024, `net8.0-windows` for Revit 2025–2026 and `net10.0-windows` for Revit 2027;
 - conditional compilation constants for different API versions: `VERSION_2025`, `IS2025`, `BEFORE2026`, `AFTER2024`, and others;
 - excluding `RevitAPI.dll` and `RevitAPIUI.dll` from the output directory;
 - launching the installed Revit during debugging;
@@ -24,12 +24,12 @@ Specify the SDK package and its version in the project file:
 ```xml
 <Project Sdk="VolocyNazad.Revit.Sdk/VERSION">
   <PropertyGroup>
-    <Configurations>Debug_2024;Debug_2025;Release_2024;Release_2025</Configurations>
+    <Configurations>Debug_2026;Debug_2027;Release_2026;Release_2027</Configurations>
   </PropertyGroup>
 </Project>
 ```
 
-Replace `VERSION` with the package version you need. The configuration name must follow the `<Debug|Release>_<year>` format, e.g. `Debug_2025`. The SDK extracts the year after the `_` character and uses it as the target Revit version.
+Replace `VERSION` with the package version you need. The configuration name must follow the `<Debug|Release>_<year>` format, e.g. `Debug_2027`. The SDK extracts the year after the `_` character and uses it as the target Revit version. Add one configuration per Revit year you target (supported years: 2021–2027); any other year fails the build with an error.
 
 ## Manifest generation
 
