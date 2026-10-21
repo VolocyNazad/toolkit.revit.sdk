@@ -6,5 +6,7 @@
 		<LangVersion>latest</LangVersion>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!-- Microsoft.Build* assemblies are provided by the installed SDK at runtime. -->
+		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     </PropertyGroup>
 </Project>

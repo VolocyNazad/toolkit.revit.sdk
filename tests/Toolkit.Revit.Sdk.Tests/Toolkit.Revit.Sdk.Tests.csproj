@@ -7,6 +7,8 @@
 		<IsPublishable>false</IsPublishable>
 		<IsTestProject>true</IsTestProject>
 		<OutputType>Exe</OutputType>
+		<!-- Tests are not a public API, and Microsoft.Build* comes from the installed SDK at run time. -->
+		<NoWarn>$(NoWarn);CS1591;NU1701</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
