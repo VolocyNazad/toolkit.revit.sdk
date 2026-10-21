@@ -39,3 +39,10 @@ removed managed files. Solution templates follow the same contract.
 ## Formatting baseline
 
 Keep the root `.editorconfig` in the solution and apply its repository-wide encoding, line-ending and trailing-whitespace rules. Repository-specific sections may add stricter language rules. Update the file deliberately when formatting conventions change; do not replace specialized rules with the shared minimum.
+
+## Central package management
+
+Keep project package versions in the root `Directory.Packages.props`. Test-only
+packages belong in `tests/Directory.Packages.props`, which imports the root file;
+do not add `Version` attributes to individual `PackageReference` items. Keep
+versions aligned between projects that serve the same role.

@@ -22,10 +22,12 @@ against (`<Project Sdk="VolocyNazad.Revit.Sdk/...">`).
 
 ```
 .
+├── Directory.Packages.props           central package versions
 ├── src/
-│   └── Toolkit.Revit.Sdk/          the SDK itself (MSBuild tasks/targets)
+│   └── Toolkit.Revit.Sdk/            the SDK itself (MSBuild tasks/targets)
 └── tests/
-    └── Toolkit.Revit.Sdk.Tests/    xunit tests for the task logic (e.g. GenerateAddinManifest)
+    ├── Directory.Packages.props       test-only package versions
+    └── Toolkit.Revit.Sdk.Tests/      xunit tests for the task logic (e.g. GenerateAddinManifest)
 ```
 
 ## Tech stack
@@ -34,6 +36,7 @@ against (`<Project Sdk="VolocyNazad.Revit.Sdk/...">`).
 - `Microsoft.Build.Utilities.Core` (MSBuild task API)
 - MinVer (git-tag-based versioning)
 - PolySharp (C# language polyfills)
+- Package versions use central package management (`Directory.Packages.props`, `ManagePackageVersionsCentrally=true`); test-only versions live in `tests/Directory.Packages.props`, which imports the root file.
 - xUnit v3 through Microsoft.Testing.Platform (unit tests in `tests/Toolkit.Revit.Sdk.Tests`, targeting `net10.0` only), in two styles:
   - task logic (`GenerateAddinManifest`) is tested by instantiating the task directly with
     `Microsoft.Build.Utilities.TaskItem` inputs and asserting on the generated `.addin` XML

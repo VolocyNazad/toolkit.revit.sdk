@@ -50,15 +50,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="PolySharp" Version="1.16.0">
+		<PackageReference Include="PolySharp">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Build.Utilities.Core" Version="18.10.1" ExcludeAssets="Runtime" />
-		<PackageReference Include="MinVer" Version="8.0.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.Build.Utilities.Core" ExcludeAssets="Runtime" />
 	</ItemGroup>
 
 </Project>

@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Centralize package versions in `Directory.Packages.props` and move test-only versions into `tests/Directory.Packages.props`.
+
 ## [1.1.0] - 2026-10-07
 
 ### Added
