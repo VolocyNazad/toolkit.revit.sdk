@@ -12,6 +12,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Move the commit message policy to `docs/policies/commits.md` and require it in the repository validator.
+
 - Document the commit message policy: the Conventional Commits type set, breaking-change markers and subject rules.
 
 - Centralize package versions in `Directory.Packages.props` and move test-only versions into `tests/Directory.Packages.props`.
