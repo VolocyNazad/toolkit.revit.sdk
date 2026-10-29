@@ -15,6 +15,10 @@ Commit messages follow Conventional Commits (`<type>(<scope>): <description>`, e
 
 Don't `git push` - commit locally and leave pushing to the user, unless they explicitly ask for a push.
 
+Branching follows the [branching policy](branching.md): `main` holds the released state,
+`dev` integrates the next release, and every change reaches them through a short-lived
+branch and a pull request.
+
 Keep `CHANGELOG.md` up to date, in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format - add an entry under `## [Unreleased]` (in the right category: Added/Changed/Fixed/Removed/...) as part of the same change, not as a separate follow-up.
 
 ## Release changelog
