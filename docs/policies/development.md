@@ -21,8 +21,8 @@ branch and a pull request.
 
 Keep [CHANGELOG.md](../../CHANGELOG.md) up to date as the [changelog policy](changelog.md) requires.
 
-Tests follow the [testing policy](testing.md): what needs a test, which Revit versions must be
-covered and how the headless and in-Revit suites are laid out. Performance work follows the
+Tests follow the [testing policy](testing.md): what needs a test, which configurations must be
+covered and how the test projects are laid out. Performance work follows the
 [benchmark policy](benchmarks.md).
 
 ## .NET SDK selection
