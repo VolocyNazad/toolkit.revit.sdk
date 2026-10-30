@@ -19,11 +19,7 @@ Branching follows the [branching policy](branching.md): `main` holds the release
 `dev` integrates the next release, and every change reaches them through a short-lived
 branch and a pull request.
 
-Keep `CHANGELOG.md` up to date, in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format - add an entry under `## [Unreleased]` (in the right category: Added/Changed/Fixed/Removed/...) as part of the same change, not as a separate follow-up.
-
-## Release changelog
-
-Before creating a release tag, move the content of `## [Unreleased]` in `CHANGELOG.md` into a new `## [VERSION] - YYYY-MM-DD` section directly below it, where `VERSION` is the tag without a leading `v`, and leave `## [Unreleased]` empty. Commit that change and create the tag on that commit, so the changelog at the tagged commit names the released version and carries no unreleased entries. While moving the entries, review them against the previous release: keep changes a consumer of that release can observe, merge related entries, and drop fixes for behavior that was never released. The publish workflow enforces this before building: it refuses to publish when `## [Unreleased]` contains any entry or when the changelog has no section for the tagged version. Empty category headings under `Unreleased` are tolerated.
+Keep [CHANGELOG.md](../../CHANGELOG.md) up to date as the [changelog policy](changelog.md) requires.
 
 ## .NET SDK selection
 
