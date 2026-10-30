@@ -11,6 +11,10 @@ pull request.
 
 Commit messages follow the [commit message policy](docs/policies/commits.md).
 
+Tests follow the [testing policy](docs/policies/testing.md): `*.Tests` run in CI on
+every supported Revit version, `*.RevitTests` run outside CI on a machine with Revit
+installed.
+
 Keep changes focused and update [CHANGELOG.md](CHANGELOG.md) under `Unreleased`
 as the [changelog policy](docs/policies/changelog.md) requires. Run the
 repository build and the policy validator before submitting a pull request:

@@ -21,6 +21,10 @@ branch and a pull request.
 
 Keep [CHANGELOG.md](../../CHANGELOG.md) up to date as the [changelog policy](changelog.md) requires.
 
+Tests follow the [testing policy](testing.md): what needs a test, which Revit versions must be
+covered and how the headless and in-Revit suites are laid out. Performance work follows the
+[benchmark policy](benchmarks.md).
+
 ## .NET SDK selection
 
 Use the repository-root `global.json` for local builds and CI: SDK `10.0.103` or a later stable SDK in the `10.0` major/minor line (`rollForward: latestFeature`, `allowPrerelease: false`). Do not roll forward to another major/minor line without updating this policy and `global.json` together. GitHub Actions setup steps must read `global-json-file: global.json` after checkout. Additional SDKs may be installed to supply runtimes for older test targets; they do not replace the SDK selected by `global.json`. This policy does not change project target frameworks.

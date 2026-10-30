@@ -33,6 +33,8 @@
     <File Path="docs/policies/branching.md" />
     <File Path="docs/policies/commits.md" />
     <File Path="docs/policies/changelog.md" />
+    <File Path="docs/policies/testing.md" />
+    <File Path="docs/policies/benchmarks.md" />
   </Folder>
   <Folder Name="/solutionItems/.github/">
     <File Path=".github/pull_request_template.md" />
