@@ -108,13 +108,8 @@ The project is distributed under the [MIT](LICENSE.md) license.
 
 ## Development documentation
 
-- [Development policy](docs/policies/development.md)
+- [Repository policy index](docs/policies/README.md)
 - [Repository guide and technology stack](docs/repository.md)
-- [Branching policy](docs/policies/branching.md)
-- [Commit message policy](docs/policies/commits.md)
-- [Changelog policy](docs/policies/changelog.md)
-- [Testing policy](docs/policies/testing.md)
-- [Benchmark policy](docs/policies/benchmarks.md)
 
 ## Contributing
 

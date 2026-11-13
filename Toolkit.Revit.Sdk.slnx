@@ -29,12 +29,18 @@
     <File Path="docs/repository.md" />
   </Folder>
   <Folder Name="/docs/policies/">
+    <File Path="docs/policies/README.md" />
     <File Path="docs/policies/development.md" />
     <File Path="docs/policies/branching.md" />
     <File Path="docs/policies/commits.md" />
     <File Path="docs/policies/changelog.md" />
     <File Path="docs/policies/testing.md" />
     <File Path="docs/policies/benchmarks.md" />
+    <File Path="docs/policies/pull-requests.md" />
+    <File Path="docs/policies/releases.md" />
+    <File Path="docs/policies/documentation.md" />
+    <File Path="docs/policies/build.md" />
+    <File Path="docs/policies/repository-maintenance.md" />
   </Folder>
   <Folder Name="/solutionItems/.github/">
     <File Path=".github/pull_request_template.md" />
@@ -46,5 +52,7 @@
   </Folder>
   <Folder Name="/solutionItems/scripts/">
     <File Path="scripts/Validate-Repository.ps1" />
+    <File Path="scripts/Update-Changelog.ps1" />
+    <File Path="scripts/Verify-Release.ps1" />
   </Folder>
 </Solution>

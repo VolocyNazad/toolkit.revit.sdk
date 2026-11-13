@@ -2,6 +2,8 @@
 
 Paths mentioned in this policy are relative to the repository root unless a Markdown link specifies otherwise.
 
+Read when: adding tests, choosing a test kind or running a suite.
+
 Tests are the evidence that a change works. The repository separates them by what they need
 to run: a normal process, or a person in front of the product.
 

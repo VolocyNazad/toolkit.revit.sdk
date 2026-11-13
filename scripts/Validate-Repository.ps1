@@ -17,8 +17,9 @@ function Require-Link([string]$Document, [string]$Target) {
 }
 
 @('README.md', 'AGENTS.md', 'CHANGELOG.md', 'CONTRIBUTING.md', 'global.json',
-  'docs/policies/development.md', 'docs/policies/branching.md', 'docs/policies/commits.md', 'docs/policies/changelog.md', 'docs/policies/testing.md', 'docs/policies/benchmarks.md', 'docs/repository.md',
-  'scripts/Validate-Repository.ps1') | ForEach-Object { Require-File $_ }
+  'docs/policies/README.md', 'docs/policies/development.md', 'docs/policies/branching.md', 'docs/policies/commits.md', 'docs/policies/changelog.md', 'docs/policies/testing.md', 'docs/policies/benchmarks.md',
+  'docs/policies/pull-requests.md', 'docs/policies/releases.md', 'docs/policies/documentation.md', 'docs/policies/build.md', 'docs/policies/repository-maintenance.md',
+  'docs/repository.md', 'scripts/Validate-Repository.ps1') | ForEach-Object { Require-File $_ }
 Require-One 'NuGet configuration' @('NuGet.config', 'nuget.config')
 Require-One 'license' @('LICENSE', 'LICENSE.md', 'LICENSE.txt')
 Require-One 'root solution' @((Get-ChildItem -LiteralPath $root -File |
@@ -26,39 +27,71 @@ Require-One 'root solution' @((Get-ChildItem -LiteralPath $root -File |
 
 Require-Link 'AGENTS.md' 'docs/policies/development.md'
 Require-Link 'AGENTS.md' 'docs/repository.md'
+Require-Link 'AGENTS.md' 'docs/policies/README.md'
 Require-Link 'README.md' 'CONTRIBUTING.md'
-Require-Link 'README.md' 'docs/policies/development.md'
+Require-Link 'README.md' 'docs/policies/README.md'
 Require-Link 'README.md' 'docs/repository.md'
 Require-Link 'CONTRIBUTING.md' 'docs/policies/development.md'
+Require-Link 'CONTRIBUTING.md' 'docs/policies/README.md'
 Require-Link 'CONTRIBUTING.md' 'docs/repository.md'
 Require-Link 'CONTRIBUTING.md' 'CHANGELOG.md'
-Require-Link 'docs/policies/development.md' '../repository.md'
-Require-Link 'docs/repository.md' 'policies/development.md'
-Require-Link 'AGENTS.md' 'docs/policies/branching.md'
-Require-Link 'README.md' 'docs/policies/branching.md'
 Require-Link 'CONTRIBUTING.md' 'docs/policies/branching.md'
-Require-Link 'docs/policies/development.md' 'branching.md'
-Require-Link 'docs/policies/branching.md' 'changelog.md'
-Require-Link 'AGENTS.md' 'docs/policies/commits.md'
-Require-Link 'README.md' 'docs/policies/commits.md'
 Require-Link 'CONTRIBUTING.md' 'docs/policies/commits.md'
-Require-Link 'docs/policies/development.md' 'commits.md'
-Require-Link 'docs/policies/branching.md' 'commits.md'
-Require-Link 'docs/policies/commits.md' 'development.md'
-Require-Link 'AGENTS.md' 'docs/policies/changelog.md'
-Require-Link 'README.md' 'docs/policies/changelog.md'
 Require-Link 'CONTRIBUTING.md' 'docs/policies/changelog.md'
-Require-Link 'docs/policies/development.md' 'changelog.md'
-Require-Link 'docs/policies/changelog.md' 'development.md'
-Require-Link 'AGENTS.md' 'docs/policies/testing.md'
-Require-Link 'AGENTS.md' 'docs/policies/benchmarks.md'
-Require-Link 'README.md' 'docs/policies/testing.md'
-Require-Link 'README.md' 'docs/policies/benchmarks.md'
 Require-Link 'CONTRIBUTING.md' 'docs/policies/testing.md'
+Require-Link 'CONTRIBUTING.md' 'docs/policies/pull-requests.md'
+Require-Link 'docs/repository.md' 'policies/README.md'
+Require-Link 'docs/repository.md' 'policies/development.md'
+Require-Link 'docs/policies/README.md' 'development.md'
+Require-Link 'docs/policies/development.md' '../repository.md'
+Require-Link 'docs/policies/development.md' 'README.md'
+Require-Link 'docs/policies/development.md' 'branching.md'
+Require-Link 'docs/policies/development.md' 'commits.md'
+Require-Link 'docs/policies/development.md' 'changelog.md'
+Require-Link 'docs/policies/development.md' 'pull-requests.md'
 Require-Link 'docs/policies/development.md' 'testing.md'
 Require-Link 'docs/policies/development.md' 'benchmarks.md'
+Require-Link 'docs/policies/development.md' 'releases.md'
+Require-Link 'docs/policies/development.md' 'documentation.md'
+Require-Link 'docs/policies/development.md' 'build.md'
+Require-Link 'docs/policies/development.md' 'repository-maintenance.md'
+Require-Link 'docs/policies/branching.md' 'changelog.md'
+Require-Link 'docs/policies/branching.md' 'commits.md'
+Require-Link 'docs/policies/commits.md' 'development.md'
+Require-Link 'docs/policies/changelog.md' 'development.md'
+Require-Link 'docs/policies/changelog.md' 'releases.md'
 Require-Link 'docs/policies/testing.md' 'development.md'
 Require-Link 'docs/policies/benchmarks.md' 'development.md'
+Require-Link 'docs/policies/pull-requests.md' 'branching.md'
+Require-Link 'docs/policies/pull-requests.md' 'changelog.md'
+Require-Link 'docs/policies/pull-requests.md' 'development.md'
+Require-Link 'docs/policies/releases.md' 'changelog.md'
+Require-Link 'docs/policies/releases.md' 'development.md'
+Require-Link 'docs/policies/documentation.md' 'README.md'
+Require-Link 'docs/policies/documentation.md' 'development.md'
+Require-Link 'docs/policies/documentation.md' 'repository-maintenance.md'
+Require-Link 'docs/policies/build.md' 'development.md'
+Require-Link 'docs/policies/repository-maintenance.md' 'development.md'
+Require-Link 'AGENTS.md' 'docs/policies/README.md'
+Require-Link 'README.md' 'docs/policies/README.md'
+Require-Link 'CONTRIBUTING.md' 'docs/policies/README.md'
+Require-Link 'docs/repository.md' 'policies/README.md'
+Require-Link 'docs/policies/README.md' 'development.md'
+Require-Link 'docs/policies/development.md' 'README.md'
+Require-Link 'docs/policies/development.md' 'pull-requests.md'
+Require-Link 'docs/policies/development.md' 'releases.md'
+Require-Link 'docs/policies/development.md' 'documentation.md'
+Require-Link 'docs/policies/development.md' 'build.md'
+Require-Link 'docs/policies/development.md' 'repository-maintenance.md'
+Require-Link 'docs/policies/pull-requests.md' 'branching.md'
+Require-Link 'docs/policies/pull-requests.md' 'changelog.md'
+Require-Link 'docs/policies/pull-requests.md' 'development.md'
+Require-Link 'docs/policies/releases.md' 'changelog.md'
+Require-Link 'docs/policies/releases.md' 'development.md'
+Require-Link 'docs/policies/documentation.md' 'README.md'
+Require-Link 'docs/policies/documentation.md' 'development.md'
+Require-Link 'docs/policies/build.md' 'development.md'
+Require-Link 'docs/policies/repository-maintenance.md' 'development.md'
 
 $managed = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
 $rootNames = @('.gitignore', '.gitattributes', '.editorconfig', '.globalconfig', 'global.json',
@@ -96,4 +129,109 @@ foreach ($item in $listed) {
 $missingItems = @($managed | Where-Object { $_ -notin $listed } | Sort-Object)
 if ($missingItems) { throw "Files missing from Solution Items: $($missingItems -join ', ')" }
 
-Write-Host "Repository policy validation passed: $($solution.Name); $($listed.Count) solution items."
+# --- Markdown links and anchors --------------------------------------------------------------
+# Every relative link must resolve to an existing file or directory, and a `#anchor` must point at
+# a heading that exists in the target Markdown document.
+function Read-Utf8File([string]$Path) {
+    return [IO.File]::ReadAllText($Path, [Text.Encoding]::UTF8)
+}
+function Get-HeadingSlug([string]$Heading) {
+    $slug = $Heading.ToLowerInvariant()
+    $slug = [regex]::Replace($slug, '[^a-z0-9 _-]', '')
+    $slug = $slug.Replace(' ', '-')
+    return $slug.Trim('-')
+}
+function Get-MarkdownSlugs([string]$Path) {
+    $slugs = @{}
+    foreach ($line in (Read-Utf8File $Path) -split '\r?\n') {
+        if ($line -match '^#{1,6}\s+(.+?)\s*#*\s*$') {
+            $slug = Get-HeadingSlug $Matches[1]
+            if ($slug) { $slugs[$slug] = $true }
+        }
+    }
+    return $slugs
+}
+
+$markdownFiles = @()
+$markdownFiles += @(Get-ChildItem -LiteralPath $root -File -Filter '*.md')
+foreach ($folder in @('docs', '.github')) {
+    $folderPath = Join-Path $root $folder
+    if (Test-Path -LiteralPath $folderPath -PathType Container) {
+        $markdownFiles += @(Get-ChildItem -LiteralPath $folderPath -File -Recurse -Filter '*.md' |
+            Where-Object { $_.FullName -notmatch '[\\/](\.git|bin|obj|\.obsidian)[\\/]' })
+    }
+}
+$slugsByFile = @{}
+foreach ($file in $markdownFiles) { $slugsByFile[$file.FullName] = Get-MarkdownSlugs $file.FullName }
+$linkPattern = '\[[^\]]*\]\(\s*<?([^)\s>]+)>?\s*\)'
+$script:linkErrors = @()
+foreach ($file in $markdownFiles) {
+    $content = Read-Utf8File $file.FullName
+    $content = [regex]::Replace($content, '(?ms)^\s*```.*?^\s*```', '')
+    $content = [regex]::Replace($content, '(?ms)^\s*~~~.*?^\s*~~~', '')
+    foreach ($match in [regex]::Matches($content, $linkPattern)) {
+        $target = $match.Groups[1].Value
+        if ($target -match '^(https?:|mailto:|#?$)') { continue }
+        $targetPath, $anchor = $target -split '#', 2
+        $targetPath = [uri]::UnescapeDataString($targetPath)
+        if (-not $targetPath) {
+            $resolved = $file.FullName
+        } else {
+            $resolved = [IO.Path]::GetFullPath((Join-Path $file.DirectoryName $targetPath))
+        }
+        $relative = $file.FullName.Substring($root.Length + 1).Replace('\', '/')
+        $displayTarget = $targetPath.Replace('\', '/')
+        if (-not (Test-Path -LiteralPath $resolved)) {
+            $script:linkErrors += "${relative}: link target not found: $displayTarget"
+            continue
+        }
+        if (-not $anchor -or -not $resolved.EndsWith('.md', [StringComparison]::OrdinalIgnoreCase)) { continue }
+        if (-not $slugsByFile.ContainsKey($resolved)) { $slugsByFile[$resolved] = Get-MarkdownSlugs $resolved }
+        $slug = $anchor.ToLowerInvariant()
+        if (-not $slugsByFile[$resolved].ContainsKey($slug)) {
+            $script:linkErrors += "${relative}: anchor not found: $displayTarget#$anchor"
+        }
+    }
+}
+if ($script:linkErrors) {
+    throw "Broken Markdown links:`n$($script:linkErrors -join "`n")"
+}
+
+# Build output must never be tracked: generated bin/ and obj/ content is local to a machine.
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    $trackedOutputs = @(& git -C $root ls-files |
+        Where-Object { $_ -match '(^|/)(bin|obj)/' } |
+        Sort-Object)
+    if ($trackedOutputs) {
+        throw "Tracked build output: $($trackedOutputs -join ', ')"
+    }
+}
+
+# Tracked text files are UTF-8. A broken byte sequence in source or documentation is a defect: the
+# compiler then reads the file with a locale-dependent fallback, and tools cannot read it at all.
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    $textExtensions = @('.cs', '.md', '.yml', '.yaml', '.json', '.xml', '.csproj', '.props', '.targets',
+        '.ps1', '.psm1', '.txt', '.config', '.slnx', '.sln', '.addin', '.xaml', '.resx', '.sh')
+    $strictUtf8 = [Text.UTF8Encoding]::new($false, $true)
+    $invalidTextFiles = @()
+    foreach ($relative in @(& git -C $root -c core.quotepath=false ls-files)) {
+        if ($textExtensions -notcontains [IO.Path]::GetExtension($relative)) { continue }
+        $trackedPath = Join-Path $root $relative
+        if (-not (Test-Path -LiteralPath $trackedPath -PathType Leaf)) { continue }
+        try {
+            [void]$strictUtf8.GetString([IO.File]::ReadAllBytes($trackedPath))
+        } catch {
+            $invalidTextFiles += $relative
+        }
+    }
+    if ($invalidTextFiles) {
+        throw "Text files are not valid UTF-8: $($invalidTextFiles -join ', ')"
+    }
+}
+
+# --- CI configuration ------------------------------------------------------------------------
+# Actions are pinned to full release tags (vMAJOR.MINOR.PATCH): a floating major tag is a movable
+# pointer, while a full release tag names one release. The check arrives together with the pinned
+# workflows in the same change.
+
+Write-Host "Repository policy validation passed: $($solution.Name); $($listed.Count) solution items; $($markdownFiles.Count) Markdown files checked."
