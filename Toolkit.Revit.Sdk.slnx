@@ -44,6 +44,7 @@
   </Folder>
   <Folder Name="/solutionItems/.github/">
     <File Path=".github/pull_request_template.md" />
+    <File Path=".github/dependabot.yml" />
   </Folder>
   <Folder Name="/solutionItems/.github/workflows/">
     <File Path=".github/workflows/build-and-test.yml" />

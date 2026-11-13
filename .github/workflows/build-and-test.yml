@@ -4,28 +4,48 @@ on:
   push:
     branches:
     - main
+    - dev
   pull_request:
+
+concurrency:
+  group: build-and-test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  ContinuousIntegrationBuild: true
 
 jobs:
   build:
     name: windows-latest
     runs-on: windows-latest
+    timeout-minutes: 30
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7.0.1
       with:
-        fetch-depth: 0 # for minver
+        fetch-depth: 0
+        persist-credentials: false
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5.4.0
       with:
         global-json-file: global.json
+        cache: true
+        cache-dependency-path: |
+          global.json
+          **/Directory.Packages.props
+          NuGet.config
     - name: Build
-      run: dotnet build --configuration Release -p:Platform=x64 /nologo
+      run: dotnet build --configuration Release -p:Platform=x64 -p:TreatWarningsAsErrors=true -p:EnforcePublicApiDocumentation=true /nologo
     - name: Run tests
       run: dotnet test --project tests/Toolkit.Revit.Sdk.Tests/Toolkit.Revit.Sdk.Tests.csproj --configuration Release --no-build -p:Platform=x64
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7.0.2
       with:
         name: VolocyNazad.Revit.Sdk
         path: artifacts/*

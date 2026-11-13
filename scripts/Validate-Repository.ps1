@@ -231,7 +231,17 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 
 # --- CI configuration ------------------------------------------------------------------------
 # Actions are pinned to full release tags (vMAJOR.MINOR.PATCH): a floating major tag is a movable
-# pointer, while a full release tag names one release. The check arrives together with the pinned
-# workflows in the same change.
+# pointer, while a full release tag names one release.
+$workflowsPath = Join-Path $root '.github/workflows'
+foreach ($workflow in Get-ChildItem -LiteralPath $workflowsPath -File -Filter '*.yml') {
+    $text = Read-Utf8File $workflow.FullName
+    foreach ($match in [regex]::Matches($text, '(?m)^\s*(?:-\s+)?uses:\s*(\S+)')) {
+        $reference = $match.Groups[1].Value
+        if ($reference.StartsWith('./', [StringComparison]::Ordinal)) { continue }
+        if ($reference -notmatch '^[^@\s]+@v\d+\.\d+\.\d+$') {
+            throw "Workflow $($workflow.Name) references an action that is not pinned to a full version tag (vMAJOR.MINOR.PATCH): $reference"
+        }
+    }
+}
 
 Write-Host "Repository policy validation passed: $($solution.Name); $($listed.Count) solution items; $($markdownFiles.Count) Markdown files checked."

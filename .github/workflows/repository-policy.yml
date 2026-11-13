@@ -2,7 +2,14 @@ name: Repository policy
 
 on:
   push:
+    branches:
+    - main
+    - dev
   pull_request:
+
+concurrency:
+  group: repository-policy-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -11,9 +18,12 @@ jobs:
   validate:
     name: Validate repository policy
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - name: Validate required files, links, anchors and Solution Items
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - name: Validate required files, links, anchors, Solution Items and action pins
         shell: pwsh
         run: ./scripts/Validate-Repository.ps1
       - name: Verify pending changelog fragments

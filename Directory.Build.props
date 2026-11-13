@@ -6,6 +6,8 @@
 		<LangVersion>latest</LangVersion>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!-- The strict audit in CI promotes a missing XML comment on a public member to an error. -->
+		<WarningsAsErrors Condition="'$(EnforcePublicApiDocumentation)' == 'true'">$(WarningsAsErrors);CS1591</WarningsAsErrors>
 		<!-- Microsoft.Build* assemblies are provided by the installed SDK at runtime. -->
 		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     </PropertyGroup>
