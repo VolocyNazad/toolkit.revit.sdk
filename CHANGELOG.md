@@ -6,23 +6,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Added
-
-- Add a testing policy: test kinds, configuration coverage, naming, isolation and the manual smoke check.
-- Add a benchmark policy: when performance is measured, how, and how results are reported.
-
-- Branching policy: `main` holds the released state, `dev` integrates the next release, and changes arrive through feature, fix, release and hotfix branches.
-
-### Changed
-
-- Move the changelog policy to `docs/policies/changelog.md` and require it in the repository validator.
-
-- Move the commit message policy to `docs/policies/commits.md` and require it in the repository validator.
-
-- Document the commit message policy: the Conventional Commits type set, breaking-change markers and subject rules.
-
-- Centralize package versions in `Directory.Packages.props` and move test-only versions into `tests/Directory.Packages.props`.
-
 ## [1.1.0] - 2026-10-07
 
 ### Added

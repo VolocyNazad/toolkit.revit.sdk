@@ -13,6 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate required files, links and Solution Items
+      - name: Validate required files, links, anchors and Solution Items
         shell: pwsh
         run: ./scripts/Validate-Repository.ps1
+      - name: Verify pending changelog fragments
+        shell: pwsh
+        run: ./scripts/Update-Changelog.ps1 -Verify
+      - name: Verify the CHANGELOG structure
+        shell: pwsh
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          if ($env:BRANCH -like 'release/*' -or $env:BRANCH -like 'hotfix/*') {
+            ./scripts/Verify-Release.ps1 -AllowUnreleased
+          } else {
+            ./scripts/Verify-Release.ps1
+          }
