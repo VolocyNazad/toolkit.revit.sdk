@@ -29,7 +29,7 @@ jobs:
         persist-credentials: false
     - name: Verify release tag, changelog and branch
       shell: pwsh
-      run: ./scripts/Verify-Release.ps1 -FromHeadTag -AncestorOf main
+      run: ./scripts/Verify-Release.ps1 -FromHeadTag -AncestorOf main -TagPrefix v
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5.4.0
       with:

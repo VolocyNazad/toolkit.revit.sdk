@@ -11,9 +11,10 @@ ordered newest first, and dates are valid.
 compose and finalize steps of the changelog policy. The tag check never accepts them: the tagged
 commit must not carry unreleased entries.
 
-With `-FromHeadTag` the script additionally requires exactly one stable `vMAJOR.MINOR.PATCH` tag on
+With `-FromHeadTag` the script additionally requires exactly one stable `MAJOR.MINOR.PATCH` tag on
 `HEAD`, requires the changelog to contain the section for that tag directly below `Unreleased`, and
-optionally requires `HEAD` to be an ancestor of the given remote branch.
+optionally requires `HEAD` to be an ancestor of the given remote branch. Pass `-TagPrefix v` when the
+repository tags releases with a prefix; the changelog always names the version without it.
 
 The repository policy workflow runs the structural checks on every push and pull request, so a broken
 changelog is reported before the immutable release tag is created. The publish workflow runs the tag
@@ -31,6 +32,9 @@ Derive the version from the single stable tag on `HEAD` and verify the tag and t
 Accept entries under `## [Unreleased]`. Use it on a release or hotfix branch, where the composed
 entry waits for the finalize step; the tag check ignores it.
 
+.PARAMETER TagPrefix
+Prefix of the release tag, for example `v`. Defaults to no prefix.
+
 .PARAMETER AncestorOf
 Remote branch name, for example `main`. With -FromHeadTag, `HEAD` must be an ancestor of
 `origin/<AncestorOf>`.
@@ -42,7 +46,9 @@ param(
 
     [switch]$AllowUnreleased,
 
-    [string]$AncestorOf = ''
+    [string]$AncestorOf = '',
+
+    [string]$TagPrefix = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -57,6 +63,7 @@ $problems = [Collections.Generic.List[string]]::new()
 
 $headingPattern = '^## \[(?<label>[^\]]+)\](?: - (?<date>\d{4}-\d{2}-\d{2}))?\s*$'
 $versionPattern = '^\d+\.\d+\.\d+$'
+$tagPattern = '^' + [regex]::Escape($TagPrefix) + '\d+\.\d+\.\d+$'
 $lines = @(Get-Content -LiteralPath $changelogPath -Encoding utf8)
 
 $headings = [Collections.Generic.List[object]]::new()
@@ -140,15 +147,15 @@ foreach ($release in $releases) {
 $tag = $null
 $version = $null
 if ($FromHeadTag) {
-    $tags = @(& git -C $root tag --points-at HEAD 2>$null | Where-Object { $_ -match '^v\d+\.\d+\.\d+$' })
+    $tags = @(& git -C $root tag --points-at HEAD 2>$null | Where-Object { $_ -match $tagPattern })
     if ($LASTEXITCODE -ne 0) {
         throw 'git tag failed; the release tag cannot be verified.'
     }
     if ($tags.Count -ne 1) {
-        $problems.Add("The selected commit must carry exactly one stable tag such as 'v1.4.0'; found $($tags.Count).")
+        $problems.Add("The selected commit must carry exactly one stable tag such as '${TagPrefix}1.4.0'; found $($tags.Count).")
     } else {
         $tag = $tags[0]
-        $version = $tag.Substring(1)
+        $version = $tag.Substring($TagPrefix.Length)
         $matching = @($releases | Where-Object Label -eq $version)
         if ($matching.Count -ne 1) {
             $problems.Add("CHANGELOG.md must contain exactly one '## [$version] - YYYY-MM-DD' section for the tag $tag; found $($matching.Count).")

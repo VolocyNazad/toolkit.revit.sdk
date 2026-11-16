@@ -72,7 +72,7 @@ The tagged commit already contains the release section in `CHANGELOG.md` with an
 The workflow runs on `workflow_dispatch`; a tag push alone does not publish. It:
 
 - checks out with full history, because `MinVer` reads the tags;
-- runs `./scripts/Verify-Release.ps1 -FromHeadTag -AncestorOf main`: `HEAD` must carry exactly one
+- runs `./scripts/Verify-Release.ps1 -FromHeadTag -AncestorOf main -TagPrefix v`: `HEAD` must carry exactly one
   stable `v` tag, `CHANGELOG.md` must have an empty `## [Unreleased]` and exactly one
   `## [VERSION] - YYYY-MM-DD` section for the tag directly below it, and `HEAD` must be an ancestor
   of `origin/main`;
